@@ -54,3 +54,22 @@ export const deleteWOCRecord = async (id) => {
 }
 
 export const getWOCFiles = getWOCRecords
+
+export const downloadWOCFile = async (fileId, filename) => {
+  const token = localStorage.getItem('samudra_token')
+  const baseUrl = import.meta.env.VITE_DIRECTUS_BASE_URL || 'http://localhost:8055'
+  const url = `${baseUrl}/assets/${fileId}?download${token ? `&access_token=${token}` : ''}`
+
+  const response = await fetch(url)
+  if (!response.ok) throw new Error('Download failed')
+
+  const blob = await response.blob()
+  const objectUrl = URL.createObjectURL(blob)
+  const link = document.createElement('a')
+  link.href = objectUrl
+  link.download = filename || 'woc-file.xlsx'
+  document.body.appendChild(link)
+  link.click()
+  document.body.removeChild(link)
+  URL.revokeObjectURL(objectUrl)
+}
