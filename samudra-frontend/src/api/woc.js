@@ -16,25 +16,10 @@ export const uploadWOC = async (file) => {
 
 export const getWOCFiles = async () => {
   const response = await axiosInstance.get('/items/woc', {
-    params: { fields: '*,file.*' },
+    params: {
+      fields: 'id,date_created,file.id,file.filename_download,file.filesize,file.uploaded_on,file.type',
+      sort: '-date_created',
+    },
   })
   return response.data
 }
-
-
-// MOCK DATA - remove this and uncomment real API calls when Directus is ready
-
-// const mockWOCFiles = [
-//   { id: 1, file: { filename_download: 'WOC_Jan2026.xlsx', uploaded_on: '2026-01-15T09:30:00Z' } },
-//   { id: 2, file: { filename_download: 'WOC_Feb2026.xlsx', uploaded_on: '2026-02-10T14:20:00Z' } },
-// ]
-
-// export const uploadWOC = async (file) => {
-//   await new Promise(r => setTimeout(r, 800))
-//   return { data: { id: Date.now(), file: { filename_download: file.name, uploaded_on: new Date().toISOString() } } }
-// }
-
-// export const getWOCFiles = async () => {
-//   await new Promise(r => setTimeout(r, 500))
-//   return { data: mockWOCFiles }
-// }

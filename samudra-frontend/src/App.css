@@ -1,42 +1,103 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+:root{
+  --primary: #0f172a;
+  --primary-dark: #0a0f1b;
+  --secondary: #14b8a6;
+  --secondary-dark: #0d9488;
+  --secondary-light: #2dd4bf;
+  --neutral-50: #f9fafb;
+  --neutral-100: #f3f4f6;
+  --neutral-200: #e5e7eb;
+  --neutral-300: #d1d5db;
+  --neutral-400: #9ca3af;
+  --neutral-500: #6b7280;
+  --neutral-600: #4b5563;
+  --neutral-700: #374151;
+  --neutral-800: #1f2937;
+  --neutral-900: #111827;
+  --success: #10b981;
+  --warning: #f59e0b;
+  --danger: #ef4444;
+  --error: #dc2626;
+  --shadow-sm: 0 1px 2px 0 rgba(0,0,0,0.05);
+  --shadow-md: 0 4px 6px -2px rgba(0,0,0,0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.15);
+  --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.2);
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+html,body,#root{
+  height:100%;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+*{
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+body{
+  background: linear-gradient(135deg, var(--primary) 0%, #0a1727 100%);
+  color: #e5e7eb;
+  font-family: "Inter Variable", -apple-system, system-ui, "Segoe UI", sans-serif;
 }
 
-.card {
-  padding: 2em;
+#root{
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
 }
 
-.read-the-docs {
-  color: #888;
+/* Professional form styling */
+input[type="email"],
+input[type="password"],
+input[type="text"],
+input[type="number"],
+select,
+textarea{
+  background: var(--neutral-800);
+  border: 1px solid var(--neutral-700);
+  color: var(--neutral-100);
+  transition: all 0.2s ease;
+  font-size: 16px;
 }
+
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="text"]:focus,
+input[type="number"]:focus,
+select:focus,
+textarea:focus{
+  outline: none;
+  border-color: var(--secondary);
+  box-shadow: 0 0 0 3px rgba(20, 184, 166, 0.1);
+  background: var(--neutral-900);
+}
+
+input::placeholder{
+  color: var(--neutral-500);
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar{
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track{
+  background: var(--neutral-800);
+}
+
+::-webkit-scrollbar-thumb{
+  background: var(--secondary);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover{
+  background: var(--secondary-dark);
+}
+
+.card{
+  background: var(--neutral-800);
+  border-radius: 8px;
+  padding: 1rem;
+}
+

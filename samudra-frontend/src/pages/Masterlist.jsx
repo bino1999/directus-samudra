@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
+import { toast } from 'sonner'
 import { getMasterlist, createMasterlist, updateMasterlist, deleteMasterlist } from '../api/masterlist'
 import DataTable from '../components/DataTable'
 import RowModal from '../components/RowModal'
@@ -54,9 +55,9 @@ const Masterlist = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['masterlist'] })
       setIsAddOpen(false)
-      alert('Record added successfully.')
+      toast.success('Record added successfully.')
     },
-    onError: () => alert('Failed to add record. Please try again.'),
+    onError: () => toast.error('Failed to add record. Please try again.'),
   })
 
   const updateMutation = useMutation({
@@ -64,9 +65,9 @@ const Masterlist = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['masterlist'] })
       setIsEditOpen(false)
-      alert('Record updated successfully.')
+      toast.success('Record updated successfully.')
     },
-    onError: () => alert('Failed to update record. Please try again.'),
+    onError: () => toast.error('Failed to update record. Please try again.'),
   })
 
   const deleteMutation = useMutation({
@@ -74,9 +75,9 @@ const Masterlist = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['masterlist'] })
       setIsDeleteOpen(false)
-      alert('Record deleted.')
+      toast.success('Record deleted.')
     },
-    onError: () => alert('Failed to delete record. Please try again.'),
+    onError: () => toast.error('Failed to delete record. Please try again.'),
   })
 
   const handleEdit = (row) => { setSelectedRow(row); setIsEditOpen(true) }
@@ -84,18 +85,19 @@ const Masterlist = () => {
   const handleSortChange = (newSort) => { setSort(newSort); setPage(1) }
 
   return (
-    <div>
-      {/* Header */}
-      <div className="flex items-center justify-between mb-6">
+    <div className="space-y-6">
+      {/* Page Header */}
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-slate-800">Masterlist</h1>
-          <p className="text-sm text-slate-500 mt-0.5">Manage masterlist records</p>
+          <h1 className="text-3xl font-bold text-slate-100">Masterlist</h1>
+          <p className="text-sm text-slate-400 mt-1">Manage and organize all installer and company information</p>
         </div>
         <button
           onClick={() => setIsAddOpen(true)}
-          className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors"
+          className="flex items-center gap-2 px-5 py-2.5 text-sm font-semibold text-white bg-gradient-to-r from-teal-600 to-teal-500 hover:from-teal-700 hover:to-teal-600 rounded-lg transition-all shadow-lg hover:shadow-xl"
         >
-          + Add Row
+          <span>➕</span>
+          Add Record
         </button>
       </div>
 

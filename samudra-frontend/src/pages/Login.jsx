@@ -25,74 +25,93 @@ const Login = () => {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 flex items-center justify-center px-4">
-      <div className="w-full max-w-sm">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex items-center justify-center px-4 py-8">
+      <div className="w-full max-w-md">
         {/* Card */}
-        <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-8">
-          {/* Header */}
-          <div className="text-center mb-8">
-            <h1 className="text-2xl font-bold text-slate-800 mb-1">Samudra</h1>
-            <p className="text-sm text-slate-500">Sign in to your account</p>
+        <div className="bg-slate-800 border border-slate-700 rounded-2xl shadow-2xl overflow-hidden">
+          {/* Header with gradient */}
+          <div className="bg-gradient-to-r from-teal-600 to-teal-500 px-6 py-8">
+            <div className="text-center">
+              <div className="w-14 h-14 rounded-xl bg-white/10 flex items-center justify-center text-3xl mx-auto mb-4">
+                ⚙️
+              </div>
+              <h1 className="text-2xl font-bold text-white mb-1">Samudra</h1>
+              <p className="text-sm text-teal-100">Data Management Portal</p>
+            </div>
           </div>
 
-          {/* Form */}
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+          {/* Form Section */}
+          <form onSubmit={handleSubmit(onSubmit)} className="px-6 py-8 space-y-6">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1.5">
-                Email
+              <label htmlFor="email" className="block text-sm font-semibold text-slate-100 mb-2">
+                Email Address
               </label>
               <input
+                id="email"
                 type="email"
                 {...register('email', {
                   required: 'Email is required',
                   pattern: { value: /^\S+@\S+\.\S+$/, message: 'Enter a valid email' },
                 })}
-                placeholder="you@example.com"
-                className="w-full px-3 py-2.5 border border-slate-200 rounded-lg text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                placeholder="hello@example.com"
+                className="w-full px-4 py-3 rounded-lg bg-slate-700 border border-slate-600 text-slate-100 placeholder-slate-400 focus:border-teal-500 focus:ring-2 focus:ring-teal-500/20 transition-all"
                 disabled={isSubmitting}
               />
               {errors.email && (
-                <p className="mt-1 text-xs text-red-500">{errors.email.message}</p>
+                <p className="mt-2 text-sm text-red-400">{errors.email.message}</p>
               )}
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1.5">
+              <label htmlFor="password" className="block text-sm font-semibold text-slate-100 mb-2">
                 Password
               </label>
               <input
+                id="password"
                 type="password"
                 {...register('password', {
                   required: 'Password is required',
                   minLength: { value: 6, message: 'Password must be at least 6 characters' },
                 })}
                 placeholder="••••••••"
-                className="w-full px-3 py-2.5 border border-slate-200 rounded-lg text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-4 py-3 rounded-lg bg-slate-700 border border-slate-600 text-slate-100 placeholder-slate-400 focus:border-teal-500 focus:ring-2 focus:ring-teal-500/20 transition-all"
                 disabled={isSubmitting}
               />
               {errors.password && (
-                <p className="mt-1 text-xs text-red-500">{errors.password.message}</p>
+                <p className="mt-2 text-sm text-red-400">{errors.password.message}</p>
               )}
             </div>
 
             {error && (
-              <div className="px-4 py-3 bg-red-50 border border-red-100 rounded-lg">
-                <p className="text-xs text-red-600">{error}</p>
+              <div className="px-4 py-3 bg-red-500/10 border border-red-500/30 rounded-lg">
+                <p className="text-sm text-red-300">{error}</p>
               </div>
             )}
 
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full flex items-center justify-center gap-2 px-4 py-2.5 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 disabled:opacity-60 disabled:cursor-not-allowed rounded-lg transition-colors mt-2"
+              className="w-full flex items-center justify-center gap-2 px-4 py-3 text-sm font-semibold text-white bg-gradient-to-r from-teal-600 to-teal-500 hover:from-teal-700 hover:to-teal-600 disabled:opacity-50 disabled:cursor-not-allowed rounded-lg transition-all shadow-lg hover:shadow-xl disabled:shadow-none"
             >
               {isSubmitting && (
                 <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
               )}
-              {isSubmitting ? 'Signing in...' : 'Sign in'}
+              {isSubmitting ? 'Signing in...' : 'Sign In'}
             </button>
           </form>
+
+          {/* Footer */}
+          <div className="px-6 py-4 bg-slate-700/30 border-t border-slate-700 text-center">
+            <p className="text-xs text-slate-400">
+              Use your Directus credentials to sign in
+            </p>
+          </div>
         </div>
+
+        {/* Additional info */}
+        <p className="text-center text-xs text-slate-400 mt-6">
+          © 2026 Samudra. All rights reserved.
+        </p>
       </div>
     </div>
   )

@@ -11,57 +11,72 @@ const Layout = () => {
   const { user, logout } = useAuth()
 
   return (
-    <div className="flex h-screen bg-slate-45">
-      {/* Sidebar */}
-      <aside className="w-60 bg-white border-r border-slate-200 flex flex-col shrink-0">
-        {/* Logo */}
-        <div className="px-6 py-5 border-b border-slate-200">
-          <h1 className="text-xl font-bold text-slate-800 tracking-tight">Samudra</h1>
-          <p className="text-xs text-slate-400 mt-0.5">Data Management Portal</p>
-        </div>
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-slate-100 flex flex-col">
+      {/* Top Header */}
+      <header className="w-full bg-gradient-to-r from-teal-600 to-teal-500 border-b border-teal-700/50 shadow-lg sticky top-0 z-40">
+        <div className="max-w-[1600px] mx-auto px-6 py-4">
+          <div className="flex items-center justify-between gap-8">
+            {/* Logo & Brand */}
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center font-bold text-xl">
+                ⚙️
+              </div>
+              <div className="hidden sm:block">
+                <h1 className="text-xl font-bold text-white tracking-tight">Samudra</h1>
+                <p className="text-xs text-teal-100">Data Management Portal</p>
+              </div>
+            </div>
 
-        {/* Navigation */}
-        <nav className="flex-1 px-3 py-4 space-y-1">
-          {navItems.map((item) => (
-            <NavLink
-              key={item.to}
-              to={item.to}
-              className={({ isActive }) =>
-                `flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
-                  isActive
-                    ? 'bg-blue-50 text-blue-700'
-                    : 'text-slate-600 hover:bg-slate-100 hover:text-slate-800'
-                }`
-              }
-            >
-              <span>{item.icon}</span>
-              {item.label}
-            </NavLink>
-          ))}
-        </nav>
+            {/* Navigation */}
+            <nav className="hidden md:flex items-center gap-1">
+              {navItems.map((item) => (
+                <NavLink
+                  key={item.to}
+                  to={item.to}
+                  className={({ isActive }) =>
+                    `px-4 py-2 rounded-md font-medium text-sm transition-all ${
+                      isActive
+                        ? 'bg-white/20 text-white shadow-sm'
+                        : 'text-teal-50 hover:bg-white/10'
+                    }`
+                  }
+                >
+                  {item.label}
+                </NavLink>
+              ))}
+            </nav>
 
-        {/* User & Logout */}
-        <div className="px-3 py-4 border-t border-slate-200">
-          <div className="px-3 py-2 mb-2">
-            <p className="text-xs text-slate-400">Signed in as</p>
-            <p className="text-sm font-medium text-slate-700 truncate">{user?.email}</p>
+            {/* User Section */}
+            <div className="flex items-center gap-4 ml-auto">
+              <div className="hidden sm:text-right">
+                <p className="text-sm font-medium text-white">{user?.email?.split('@')[0] || 'User'}</p>
+                <p className="text-xs text-teal-100">{user?.role?.name || 'Client'}</p>
+              </div>
+              <button
+                onClick={logout}
+                className="px-4 py-2 rounded-lg bg-white/20 hover:bg-white/30 text-white text-sm font-medium transition-colors"
+              >
+                Sign Out
+              </button>
+            </div>
           </div>
-          <button
-            onClick={logout}
-            className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-red-600 hover:bg-red-50 transition-colors"
-          >
-            <span>🚪</span>
-            Logout
-          </button>
         </div>
-      </aside>
+      </header>
 
       {/* Main Content */}
-      <main className="flex-1 overflow-y-auto">
-        <div className="p-8">
+      <main className="flex-1 w-full">
+        <div className="max-w-[1600px] mx-auto px-4 sm:px-6 py-8 w-full">
           <Outlet />
         </div>
       </main>
+
+      {/* Footer */}
+      <footer className="w-full bg-slate-900 border-t border-slate-700/50 mt-12">
+        <div className="max-w-[1600px] mx-auto px-6 py-6 flex items-center justify-between text-xs text-slate-400">
+          <p>© 2026 Samudra. All rights reserved.</p>
+          <p>Version 1.0.0</p>
+        </div>
+      </footer>
     </div>
   )
 }
