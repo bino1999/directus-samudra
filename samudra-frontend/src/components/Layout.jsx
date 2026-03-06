@@ -11,7 +11,7 @@ const Layout = () => {
   const { user, logout } = useAuth()
 
   return (
-    <div className="flex h-screen bg-slate-50">
+    <div className="flex h-screen bg-slate-45">
       {/* Sidebar */}
       <aside className="w-60 bg-white border-r border-slate-200 flex flex-col shrink-0">
         {/* Logo */}
