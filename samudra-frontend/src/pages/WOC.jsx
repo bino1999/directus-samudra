@@ -57,17 +57,17 @@ const WOC = () => {
   }
 
   const getFileName = (record) => {
-    if (!record.file) return '—'
-    if (typeof record.file === 'object') return record.file.filename_download ?? '—'
-    return '—'
-  }
+  if (!record.woc_file) return '—'
+  if (typeof record.woc_file === 'object') return record.woc_file.filename_download ?? '—'
+  return '—'
+}
 
-  const getUploadDate = (record) => {
-    if (record.file && typeof record.file === 'object') {
-      return formatDate(record.file.uploaded_on ?? record.file.date_created)
-    }
-    return formatDate(record.date_created)
+const getUploadDate = (record) => {
+  if (record.woc_file && typeof record.woc_file === 'object') {
+    return formatDate(record.woc_file.uploaded_on ?? record.woc_file.date_created)
   }
+  return formatDate(record.date_created)
+}
 
   return (
     <div className="space-y-6">
@@ -156,7 +156,7 @@ const WOC = () => {
                         <span>{getFileName(record)}</span>
                       </td>
                       <td className="px-5 py-4 text-slate-400 text-sm">
-                        {record.file?.filesize ? formatFileSize(record.file.filesize) : '—'}
+                       {record.woc_file?.filesize ? formatFileSize(record.woc_file.filesize) : '—'}
                       </td>
                       <td className="px-5 py-4 text-slate-400">
                         {getUploadDate(record)}

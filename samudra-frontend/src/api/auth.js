@@ -24,7 +24,9 @@ export const logout = async () => {
 }
 
 export const getCurrentUser = async () => {
-  const response = await axiosInstance.get('/users/me')
+  const response = await axiosInstance.get('/users/me', {
+    params: { fields: 'id,email,first_name,last_name,role.id,role.name' },
+  })
   return normalizeResponse(response)
 }
 

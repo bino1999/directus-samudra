@@ -1,25 +1,56 @@
 import axiosInstance from './axios'
 
 export const uploadWOC = async (file) => {
+  if (!file.name.endsWith('.xlsx')) {
+    throw new Error('Please upload a valid .xlsx file only')
+  }
+
   const formData = new FormData()
   formData.append('file', file)
 
   const fileResponse = await axiosInstance.post('/files', formData, {
-    headers: { 'Content-Type': 'multipart/form-data' },
+    headers: { 'Content-Type': 'multipart/form-data' }
   })
 
   const fileId = fileResponse.data.data.id
 
-  const wocResponse = await axiosInstance.post('/items/woc', { file: fileId })
+  const wocResponse = await axiosInstance.post('/items/woc', {
+    woc_file: fileId  // ✅ correct field name
+  })
+
   return wocResponse.data
 }
 
-export const getWOCFiles = async () => {
+export const getWOCRecords = async ({ 
+  page = 1, 
+  pageSize = 20, 
+  sort = '-date_created' 
+} = {}) => {
   const response = await axiosInstance.get('/items/woc', {
     params: {
-      fields: 'id,date_created,file.id,file.filename_download,file.filesize,file.uploaded_on,file.type',
-      sort: '-date_created',
-    },
+      page,
+      limit: pageSize,
+      sort,
+      fields: 'id,date_created,woc_file.id,woc_file.filename_download,woc_file.filesize,woc_file.uploaded_on,woc_file.type'
+      
+    }
   })
   return response.data
 }
+
+export const createWOCRecord = async (payload) => {
+  const response = await axiosInstance.post('/items/woc', payload)
+  return response.data
+}
+
+export const updateWOCRecord = async (id, payload) => {
+  const response = await axiosInstance.patch(`/items/woc/${id}`, payload)
+  return response.data
+}
+
+export const deleteWOCRecord = async (id) => {
+  const response = await axiosInstance.delete(`/items/woc/${id}`)
+  return response.data
+}
+
+export const getWOCFiles = getWOCRecords

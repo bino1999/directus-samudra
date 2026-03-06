@@ -47,10 +47,19 @@ const Layout = () => {
             </nav>
 
             {/* User Section */}
-            <div className="flex items-center gap-4 ml-auto">
-              <div className="hidden sm:text-right">
-                <p className="text-sm font-medium text-white">{user?.email?.split('@')[0] || 'User'}</p>
-                <p className="text-xs text-teal-100">{user?.role?.name || 'Client'}</p>
+            <div className="flex items-center gap-3 ml-auto">
+              <div className="text-right">
+                <div className="flex items-center gap-2">
+                  <span className="text-xl">👤</span>
+                  <div>
+                    <p className="text-sm font-semibold text-white leading-tight">
+                      {user?.email?.split('@')[0] || 'User'}
+                    </p>
+                    <p className="text-xs text-teal-100 leading-tight">
+                      {typeof user?.role === 'object' ? user?.role?.name : user?.role || 'User'}
+                    </p>
+                  </div>
+                </div>
               </div>
               <button
                 onClick={logout}

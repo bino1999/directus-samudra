@@ -81,8 +81,12 @@ export const AuthProvider = ({ children }) => {
       isLoading,
       login,
       logout,
-      isAdmin: Boolean(user?.role?.name && user.role.name.toLowerCase() === 'administrator'),
-      isClient: Boolean(user?.role?.name && user.role.name.toLowerCase() === 'client'),
+      isAdmin: Boolean(
+        (typeof user?.role === 'object' ? user?.role?.name : user?.role)?.toLowerCase?.() === 'administrator'
+      ),
+      isClient: Boolean(
+        (typeof user?.role === 'object' ? user?.role?.name : user?.role)?.toLowerCase?.() === 'client'
+      ),
     }}>
       {children}
     </AuthContext.Provider>
