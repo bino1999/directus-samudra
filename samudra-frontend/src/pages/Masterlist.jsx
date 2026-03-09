@@ -160,7 +160,19 @@ const Masterlist = () => {
       <RowModal
         isOpen={isEditOpen}
         onClose={() => { setIsEditOpen(false); setSelectedRow(null) }}
-        onSubmit={(data) => updateMutation.mutate({ id: selectedRow.id, payload: data })}
+        onSubmit={(formData) => {
+          const changed = Object.keys(formData).reduce((acc, key) => {
+            if (String(formData[key] ?? '') !== String(selectedRow?.[key] ?? '')) {
+              acc[key] = formData[key]
+            }
+            return acc
+          }, {})
+          if (Object.keys(changed).length === 0) {
+            toast.info('No changes detected.')
+            return
+          }
+          updateMutation.mutate({ id: selectedRow.id, payload: changed })
+        }}
         title="Edit Masterlist Item"
         fields={fields}
         defaultValues={selectedRow}
